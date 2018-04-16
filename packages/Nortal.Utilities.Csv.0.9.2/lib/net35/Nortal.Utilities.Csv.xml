@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nortal.Utilities.Csv</name>
+    </assembly>
+    <members>
+        <member name="T:Nortal.Utilities.Csv.CsvLexer">
+            <summary>
+            Converts an input string to a stream of lexemes used by Csv Parser.
+            </summary>
+        </member>
+        <member name="T:Nortal.Utilities.Csv.CsvParser">
+            <summary>
+            CSV parser based on <see href="http://tools.ietf.org/rfc/rfc4180.txt">RFC4180</see>.
+            Parses csv input into rows and row items, automatically unescaping when required.
+            </summary>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.ReadToEnd">
+            <summary>
+            Parses input to end returning all remaining rows. If file ends with trailing newline then last empty row is automatically omitted.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.ReadNextRow">
+            <summary>
+            Reads next line from csv file.
+            </summary>
+            <returns>Collection of values -or- null for empty row</returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.ParseSingleRow(System.String)">
+            <summary>
+            Splits a single row to a collection of csv items.
+            </summary>
+            <param name="singleRow"></param>
+            <returns>values in csv row</returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.ParseSingleRow(System.String,Nortal.Utilities.Csv.CsvSettings)">
+            <summary>
+            Splits a single row to a collection of csv items.
+            </summary>
+            <param name="singleRow"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.Parse(System.String)">
+            <summary>
+            Parses csv file to rows and values.
+            </summary>
+            <param name="csv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvParser.Parse(System.String,Nortal.Utilities.Csv.CsvSettings)">
+            <summary>
+            Parses csv file to rows and values.
+            </summary>
+            <param name="csv"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Nortal.Utilities.Csv.CsvParser.HasMoreRows">
+            <summary>
+            Indicates that the csv file may contain more rows. Note that the remaining row may be an empty row (created by a trailing newline).
+            </summary>
+        </member>
+        <member name="T:Nortal.Utilities.Csv.CsvSettings">
+            <summary>
+            Defines Csv syntax (field delimiter, etc). Defaults to values from RFC4180
+            </summary>
+        </member>
+        <member name="P:Nortal.Utilities.Csv.CsvSettings.FieldDelimiter">
+            <summary>
+            Symbol to separate values within a csv row. Default is comma (',').
+            </summary>
+        </member>
+        <member name="P:Nortal.Utilities.Csv.CsvSettings.RowDelimiter">
+            <summary>
+            Line separator, default is newline. Any string up to length of 2 could be used.
+            </summary>
+        </member>
+        <member name="P:Nortal.Utilities.Csv.CsvSettings.QuotingCharacter">
+            <summary>
+            Symbol to optionally wrap values with. Defaults to '"'.
+            </summary>
+        </member>
+        <member name="T:Nortal.Utilities.Csv.CsvWriter">
+            <summary>
+            Simple class to help writing correct CSV files.
+            </summary>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.WriteRawLine(System.String)">
+            <summary>
+            Writes given preformatted string directly to file followed by row delimiter. No escaping will be done.
+            </summary>
+            <param name="line"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.WriteLine(System.String[])">
+            <summary>
+            Writes a collection of values to CSV followed by row delimiter, escaping special characters when necessary.
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.WriteLine(System.IFormattable[])">
+            <summary>
+            Writes a collection of values to CSV, applying default formatting and escaping special characters when necessary, and followed by a row delimiter..
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.WriteRawValue(System.String)">
+            <summary>
+            Writes a preformatted string as the next value, to CSV file. No escaping will be done.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.Write(System.String)">
+            <summary>
+            Writes next value to current csv row, escaping special characters 
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.Write(System.IFormattable,System.String)">
+            <summary>
+            Writes next value to current csv row, escaping special characters 
+            </summary>
+            <param name="formattable"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.GetDefaultFormatFor(System.IFormattable)">
+            <summary>
+            Override to choose format for a formattable value.
+            </summary>
+            <param name="formattable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nortal.Utilities.Csv.CsvWriter.FormatValue(System.String,Nortal.Utilities.Csv.CsvSettings)">
+            <summary>
+            Escapes given value based on CSV rules.
+            </summary>
+            <param name="value"></param>
+            <param name="settings"></param>
+            <returns>value suitable for using as single item in csv row.</returns>
+        </member>
+        <member name="P:Nortal.Utilities.Csv.CsvWriter.FormattingCulture">
+            <summary>
+            Culture to use when automatically formatting IFormattables.
+            </summary>
+        </member>
+    </members>
+</doc>
