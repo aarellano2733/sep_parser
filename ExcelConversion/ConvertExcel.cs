@@ -22,7 +22,7 @@ namespace ExcelConversion
 
 
             //using (var stream = File.Open(fileInPath, FileMode.Open, FileAccess.Read))
-            using (var stream = File.Open(Path.Combine(System.IO.Path.GetDirectoryName(@"D:/SEPs2.0/All-SEPs")), FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = File.Open(fileInPath, FileMode.Open, FileAccess.ReadWrite))
             {
                 // Auto-detect format, supports:
                 //  - Binary Excel files (2.0-2003 format; *.xls)
@@ -147,10 +147,7 @@ namespace ExcelConversion
                         //if (dc.ToString() == searchText)
                         if(Regex.IsMatch(dc.ToString().Trim(), Regex.Escape(searchText.Trim()), RegexOptions.IgnoreCase))
                         {
-                            if(searchText == "City,State")
-                            {
-                                break;
-                            }
+                            break;
                         }
                     }
                     colIndex++;

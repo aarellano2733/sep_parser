@@ -11,8 +11,8 @@ namespace ExcelConversion
         static void Main(string[] args)
         {
             string mapInPath = @"D:\ExcelConversion\ExcelConversion\InputMapForXlsm.xlsx";
-            string fileInPath = @"D:\ExcelConversion\ExcelConversion\Splice-26979.xlsm";
-            string fileOutPath = @"D:\ExcelConversion\ExcelConversion\Splice-26979.csv";
+            string fileInPath = @"D:\ExcelConversion\ExcelConversion\ExcelConversion\SEPs2.0\All-SEPs";
+            string fileOutPath = @"D:\ExcelConversion\ExcelConversion\ExcelConversion\SEPs2.0\SEPs";
             //instaniate class
             ConvertExcel convert = new ConvertExcel();
             //read map
