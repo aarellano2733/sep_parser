@@ -15,14 +15,14 @@ namespace ExcelConversion
 {
     public class ConvertExcel
     {
-        public StringBuilder ReadInfoFromExcel(string fileInPath, List<MapVal> map)
+        public StringBuilder ReadInfoFromExcel(string fileRootPath, List<MapVal> map)
         {
 
             StringBuilder output = new StringBuilder();
 
 
             //using (var stream = File.Open(fileInPath, FileMode.Open, FileAccess.Read))
-            using (var stream = File.Open(fileInPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = File.Open(fileRootPath, FileMode.Open, FileAccess.ReadWrite))
             {
                 // Auto-detect format, supports:
                 //  - Binary Excel files (2.0-2003 format; *.xls)
@@ -35,7 +35,7 @@ namespace ExcelConversion
                     //in xlsm sheet[0] is macro, so the first sheet is index 1
                     //System.Data.DataTable workSheetCoverLocInfo = dataSet.Tables["Cover - Location Info"];
 
-                    System.Data.DataTable workSheetCoverLocInfo = dataSet.Tables["Cover - Location Info"];
+                    System.Data.DataTable workSheetCoverLocInfo = dataSet.Tables[0];
 
                     switch (workSheetCoverLocInfo.TableName.ToString())
                     {
@@ -76,7 +76,8 @@ namespace ExcelConversion
                         {
                             var rowItems = row.ItemArray;
                             input.Add(new MapVal { fieldName = rowItems[0].ToString(), fieldLabel = rowItems[1].ToString(), relativePos = rowItems[2].ToString(), offset = rowItems[3].ToString() });
-                        } else
+                        }
+                        else
                         {
                             skippedLabels = true;
                         }
@@ -88,7 +89,7 @@ namespace ExcelConversion
 
         private string GetFieldValue(System.Data.DataTable workSheetCoverLocInfo, string fieldName, string fieldLabel, string relativePos, string offset)
         {
-            if(fieldLabel == "City,State")
+            if (fieldLabel == "City,State")
             {
                 fieldName.Replace(fieldName, "'City/State'");
             }
@@ -145,7 +146,7 @@ namespace ExcelConversion
                     if (dc != DBNull.Value)
                     {
                         //if (dc.ToString() == searchText)
-                        if(Regex.IsMatch(dc.ToString().Trim(), Regex.Escape(searchText.Trim()), RegexOptions.IgnoreCase))
+                        if (Regex.IsMatch(dc.ToString().Trim(), Regex.Escape(searchText.Trim()), RegexOptions.IgnoreCase))
                         {
                             break;
                         }
@@ -185,7 +186,7 @@ namespace ExcelConversion
             return returnRowIndex;
         }
 
-        public void WriteToCSV(StringBuilder output, string fileOutPath)
+        public void WriteToCSV(StringBuilder output, string fileOutPath, string spliceName)
         {
             using (var writer = new StringWriter())
             {
@@ -193,11 +194,12 @@ namespace ExcelConversion
                 //csv.Write("MyValue");                    // writing one value at a time
                 //csv.Write(2, "N2");                      // or with explicit format
                 //csv.WriteLine(DateTime.Now);             // or with automatic formatting
-                //csv.WriteLine(1, 2, 3, 4, DateTime.Now);    // another line with many values at once
+                //csv.WriteLine(1, 2, 3, 4, DateTime.Now);
+
+                
                 csv.WriteLine(output.ToString());
-                File.WriteAllText(fileOutPath, writer.ToString());
+                File.WriteAllText((fileOutPath + '\\' + spliceName), writer.ToString());
             }
         }
     }
 }
-    
